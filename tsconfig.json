@@ -8,13 +8,15 @@
       "baseUrl": "src",
       "rootDir": "./src",
       
+      // typeorm config
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "esModuleInterop": true,
-      "sourceMap": true,
+      "strictPropertyInitialization": false,
 
       // config typescript
       "strict": true,
       "noImplicitAny": true,
+      "sourceMap": true,
+      "esModuleInterop": true
    }
 }
