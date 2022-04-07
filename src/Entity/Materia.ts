@@ -2,10 +2,10 @@ import {
   Entity,
   Column, 
   BaseEntity, 
-  PrimaryGeneratedColumn, 
   OneToMany,
   ManyToMany,
-  JoinTable
+  JoinTable,
+  PrimaryColumn
 } from "typeorm"
 
 import Professor from "./Professor";
@@ -13,7 +13,9 @@ import Professor from "./Professor";
 @Entity()
 export class Materia extends BaseEntity {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn({
+    length: 10
+  })
   codigo: string;
 
   @Column()

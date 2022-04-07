@@ -13,20 +13,22 @@ import Materia from "./Materia"
 import Curso from "./Curso"
 
 export enum Situacao {
-  REGULAR = "Reguar",
+  REGULAR = "Regular",
   EM_RISCO = "Em risco",
   JUBILADO = "Jubilado"
 }
 
 @Entity()
 export class Aluno extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({
+    length: 9
+  })
   matricula: string
 
   @Column()
   email: string
 
-  @Column()
+  @Column({ default: false })
   isBolsista: boolean
 
   @Column()
@@ -39,7 +41,7 @@ export class Aluno extends BaseEntity {
   })
   situacao: Situacao
 
-  @Column({ type: "float" })
+  @Column({ type: "float", default: 3 })
   rendimento: number
 
   @ManyToMany(() => Materia, materia => materia.codigo)

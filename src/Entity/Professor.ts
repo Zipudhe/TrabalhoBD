@@ -11,7 +11,9 @@ import Rate from "./Rate";
 @Entity()
 export class Professor extends BaseEntity {
 
-  @PrimaryColumn()
+  @PrimaryColumn({
+    length: 10
+  })
   matricula: string;
 
   @Column()

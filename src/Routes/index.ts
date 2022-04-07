@@ -1,12 +1,15 @@
 import express, { Router as ExpressRouter, RouterOptions } from 'express'
 import { Connection } from "typeorm"
 
+import AlunoRouter from './Aluno'
+
+
 export interface RouterDeps {
   conn: Connection
 }
 
 export interface Router<Deps extends RouterDeps> {
-  (deps: RouterDeps, options?: RouterOptions): ExpressRouter
+  (deps: Deps, options?: RouterOptions): ExpressRouter
 }
 
 const defaultOptions: RouterOptions = {
@@ -19,6 +22,7 @@ interface BaseRouterDeps {
 
 const Routes: Router<BaseRouterDeps> = ({ conn }, options = defaultOptions) => express.Router(options)
   .get("/ping", (_req, res) => res.json("pong"))
+  .use("/aluno", AlunoRouter({ conn }, options))
 
 
 export default Routes
