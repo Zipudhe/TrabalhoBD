@@ -2,6 +2,7 @@ import express, { Router as ExpressRouter, RouterOptions } from 'express'
 import { Connection } from "typeorm"
 
 import AlunoRouter from './Aluno'
+import MateriaRouter from './Materia'
 
 
 export interface RouterDeps {

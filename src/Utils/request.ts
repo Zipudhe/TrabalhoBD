@@ -1,7 +1,7 @@
 import { Request } from "express"
 
 export type QueryType = { [key: string]: undefined | string | string[] | QueryType | QueryType[] }
-export type ParamsType =  { [index: string]: string; }
+export type ParamsType =  { [index: string | number ]: string | number; }
 export type BodyType = object
 export type ReqObjExtType = object
 
