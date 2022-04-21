@@ -12,7 +12,8 @@ export class AlunoRepository extends Repository<Aluno> {
   }
 
   // Adicionar cursos pra poder adicionar aluno já com curso cadastrado
-  async createAluno(matricula: string, email: string, nome: string, situacao: Situacao, curso: number) {
+  async createAluno(matricula: string, email: string, nome: string, situacao: Situacao, curso?: number) {
+    
     return this.query(
       `INSERT INTO 
       aluno(matricula, email, nome, situacao)

@@ -37,7 +37,7 @@ export const CreateMateria: (deps: CreateMateriaDeps) =>
         .json({
           code: 400,
           status: 'error',
-          message: "Aluno já existe"
+          message: "Materia já existe"
         })
     }
 

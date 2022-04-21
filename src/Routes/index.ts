@@ -24,6 +24,7 @@ interface BaseRouterDeps {
 const Routes: Router<BaseRouterDeps> = ({ conn }, options = defaultOptions) => express.Router(options)
   .get("/ping", (_req, res) => res.json("pong"))
   .use("/aluno", AlunoRouter({ conn }, options))
+  .use("/materia", MateriaRouter({ conn }, options))
 
 
 export default Routes

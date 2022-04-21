@@ -17,7 +17,7 @@ interface IUser extends BodyType {
 export const CreateAluno: (deps: CreateAlunoDeps) => 
   RouteHandler<Req<IUser, {}>
   > = ({ alunoRepo }: CreateAlunoDeps) => async (req, res) => {
-    // Preciso corrigir essa tratativa
+    //TODO Preciso corrigir essa tratativa
     if(!req.body) {
       return res
         .status(400)

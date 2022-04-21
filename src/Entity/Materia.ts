@@ -21,7 +21,8 @@ export class Materia extends BaseEntity {
   @Column()
   carga: number;
 
-  @OneToMany(() => Materia, materia => materia.codigo)
+  @ManyToMany(() => Materia, materia => materia.codigo)
+  @JoinTable()
   prerequisito: Materia[]
 
 
