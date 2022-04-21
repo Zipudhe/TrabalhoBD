@@ -4,25 +4,27 @@ import { Router } from 'Routes'
 
 import { RateRepository } from "Repository/RateRepository"
 
-// import CreateMateria from "./CreateMateria"
-// import DeleteMateria from "./DeleteMateria"
-// import GetMateria from "./GetMateria"
-// import ListMateria from "./ListMateria"
+import CreateRate from "./CreateRate"
+import DeleteRate from "./DeleteRate"
+import ListRate from "./ListRate"
+import UpdateRate from "./UpdateRate"
+import GetRate from "./GetRate"
 
 type RateDeps = {
-  rateRepository?: RateRepository,
+  rateRepo?: RateRepository,
   conn: Connection
 }
 
-const MateriaRouter: Router<RateDeps> = (deps, options) => {
-  const { conn, rateRepository = conn.getCustomRepository(RateRepository) } = deps
+const RateRouter: Router<RateDeps> = (deps, options) => {
+  const { conn, rateRepo = conn.getCustomRepository(RateRepository) } = deps
 
   return express
     .Router(options)
-      // .get("/", ListMateria({ materiaRepo }))
-      // .post("/create", CreateMateria({ materiaRepo }))
-      // .get("/:id", GetMateria({ materiaRepo }))
-      // .delete("/:id", DeleteMateria({ materiaRepo }))
+      .post("/create", CreateRate({ rateRepo }))
+      .delete("/:id", DeleteRate({ rateRepo }))
+      .get("/", ListRate({ rateRepo }))
+      .put("/:id", UpdateRate({ rateRepo }))
+      .get("/:id", GetRate({ rateRepo }))
 }
 
-export default MateriaRouter
+export default RateRouter

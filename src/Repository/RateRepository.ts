@@ -11,14 +11,22 @@ export class RateRepository extends Repository<Rate> {
     .then(rate => rate[0])
   }
 
-  // Adicionar cursos pra poder adicionar aluno já com curso cadastrado
-  async createRate(id: number, description: number, nota: number) {
+  async getRateByDescription(description: string) {
+    return this.query(
+      `
+        SELECT * from rate WHERE rate.description = '${description}'
+      `
+    )
+  }
+
+  // TODO Adicionar parâmetro da matricula professor
+  async createRate(description: string, nota: number) {
     return this.query(
       `INSERT INTO 
-      rate(id, description, nota)
-      values(${id}, "${description}", ${nota});`
+      rate(description, nota)
+      values("${description}", ${nota});`
     )
-    .then(() => this.getRateById(id))
+    .then(() => this.getRateByDescription(description))
   }
 
   listRate() {
@@ -33,9 +41,9 @@ export class RateRepository extends Repository<Rate> {
     const id = rate.id
     return this.query(`
       UPDATE rate
-      SET ${id ? `id = ${id}` : ''},
-      ${description ? `description = ${description}` : ''},
-      ${nota ? `nota = ${nota}` : ''},
+      SET ${id ? `id = ${id}` : ''}
+      ${description ? `,description = '${description}'` : ''}
+      ${nota ? `,nota = ${nota}` : ''}
       WHERE rate.id = ${id}
     `)
     .then(() => this.getRateById(id))

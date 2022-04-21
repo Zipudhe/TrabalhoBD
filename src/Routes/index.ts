@@ -4,7 +4,7 @@ import { Connection } from "typeorm"
 import AlunoRouter from './Aluno'
 import MateriaRouter from './Materia'
 import CursoRouter from "./Curso"
-
+import RateRouter from "./Rate"
 
 export interface RouterDeps {
   conn: Connection
@@ -27,6 +27,7 @@ const Routes: Router<BaseRouterDeps> = ({ conn }, options = defaultOptions) => e
   .use("/aluno", AlunoRouter({ conn }, options))
   .use("/materia", MateriaRouter({ conn }, options))
   .use("/curso", CursoRouter({ conn }, options))
+  .use("/rate", RateRouter({ conn }, options))
 
 
 export default Routes

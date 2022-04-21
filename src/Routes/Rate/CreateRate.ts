@@ -7,7 +7,6 @@ interface CrateRateDeps {
 }
 
 interface IRate extends BodyType {
-  id: number,
   description: string,
   nota: number
 }
@@ -27,21 +26,9 @@ export const CreateRate: (deps: CrateRateDeps) =>
     }
 
 
-    const { id, description, nota } = req.body
+    const { description, nota } = req.body
 
-
-    const exists = await rateRepo.getRateById(id)
-    if(exists) {
-      return res
-        .status(400)
-        .json({
-          code: 400,
-          status: 'error',
-          message: "Rate já existe"
-        })
-    }
-
-    const rate = await rateRepo.createRate(id, description, nota )
+    const rate = await rateRepo.createRate(description, nota)
 
       if(!rate) {
         return res
@@ -52,6 +39,7 @@ export const CreateRate: (deps: CrateRateDeps) =>
           message: "Failed to create rate",
         })
       }
+      
       return res
         .status(200)
         .json({

@@ -2,13 +2,13 @@ import { RateRepository } from "Repository/RateRepository"
 import { RouteHandler } from "Utils/routeHandler"
 import { BodyType, Req } from "Utils/request"
 
-interface DeleteRateDeps {
+interface GetRateDeps {
   rateRepo: RateRepository
 }
 
-export const DeletMateria: (deps: DeleteRateDeps) => 
+export const GetRate: (deps: GetRateDeps) => 
   RouteHandler<Req<{}, {}, {id: number }>
-  > = ({ rateRepo }: DeleteRateDeps) => async (req, res) => {
+  > = ({ rateRepo }: GetRateDeps) => async (req, res) => {
     // Preciso corrigir essa tratativa
     if(!req.params) {
       return res
@@ -22,21 +22,22 @@ export const DeletMateria: (deps: DeleteRateDeps) =>
 
     const { id } = req.params
 
-    return await rateRepo.deleteRate(id)
-                          .then(() => res
+    return await rateRepo.getRateById(id)
+                          .then((data) => res
                           .status(200)
                           .json({
                             code: 200,
                             status: 'success',
-                            message: "Deleted materia with success"
+                            message: "Rate found",
+                            data
                           }))
                           .catch(err => res
                               .status(400)
                               .json({
                                 code: 400,
                                 status: "error",
-                                message: "Failed to delete materia"
+                                message: "Failed to find rate"
                               }))
     }
 
-export default DeletMateria
+export default GetRate
