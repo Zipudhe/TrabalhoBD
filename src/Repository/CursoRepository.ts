@@ -66,6 +66,24 @@ export class CursoRepository extends Repository<Curso> {
         DELETE FROM curso WHERE curso.id = ${id}
     `)
   }
+
+  addMateriaToCurso(materia: string, curso: number) {
+    console.log(materia)
+    console.log(curso)
+    return this.query(`
+      INSERT 
+      INTO materia_cursos_curso(materiaCodigo, cursoId)
+      VALUES('${materia}', ${curso})
+    `)
+  }
+
+  removeMateriaFromCurso(materia: string, curso: number) {
+    return this.query(`
+      DELETE 
+      FROM materia_cursos_curso
+      WHERE materiaCodigo = '${materia}' AND cursoId = ${curso}
+    `)
+  }
 }
 
 export default CursoRepository

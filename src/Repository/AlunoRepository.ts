@@ -49,4 +49,20 @@ export class AlunoRepository extends Repository<Aluno> {
         DELETE FROM aluno WHERE aluno.matricula = ${matricula}
     `) 
   }
+
+  subscribeAluno(aluno: Aluno, cursoId: number) {
+    return this.query(`
+      UPDATE aluno
+      SET cursoId = ${cursoId}
+      WHERE aluno.matricula = '${aluno.matricula}'
+    `)
+  }
+
+  addMateria(aluno: Aluno, codigoMateria: string) {
+    return this.query(`
+      INSERT INTO
+      aluno_materias_materia(alunoMatricula, materiaCodigo)
+      VALUES('${aluno.matricula}', '${codigoMateria}')
+    `)
+  }
 }

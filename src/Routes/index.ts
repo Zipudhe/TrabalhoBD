@@ -5,6 +5,7 @@ import AlunoRouter from './Aluno'
 import MateriaRouter from './Materia'
 import CursoRouter from "./Curso"
 import RateRouter from "./Rate"
+import ProfessorRouter from "./Professor"
 
 export interface RouterDeps {
   conn: Connection
@@ -28,6 +29,7 @@ const Routes: Router<BaseRouterDeps> = ({ conn }, options = defaultOptions) => e
   .use("/materia", MateriaRouter({ conn }, options))
   .use("/curso", CursoRouter({ conn }, options))
   .use("/rate", RateRouter({ conn }, options))
+  .use("/professor",ProfessorRouter({ conn }, options))
 
 
 export default Routes

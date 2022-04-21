@@ -57,4 +57,20 @@ export class MateriaRepository extends Repository<Materia> {
         DELETE FROM materia WHERE materia.codigo = '${codigo}'
     `) 
   }
+
+  addPreRequisito(materia: Materia, requisito: Materia) {
+    return this.query(`
+      INSERT
+      INTO materia_prerequisito_materia(materiaCodigo_1, materiaCodigo_2)
+      VALUES('${materia.codigo}', '${requisito.codigo}')
+    `)
+  }
+
+  removePreRequisito(materia: Materia, requisito: Materia) {
+    return this.query(`
+      DELETE
+      FROM materia_prerequisito_materia
+      WHERE materiaCodigo_1 = '${materia.codigo}' and materiaCodigo_2 = '${requisito.codigo}'
+    `)
+  }
 }

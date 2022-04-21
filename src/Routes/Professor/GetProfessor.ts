@@ -1,14 +1,14 @@
-import { MateriaRepository } from "Repository/MateriaRepository"
+import { ProfessorRepository } from "Repository/ProfessorRepository"
 import { RouteHandler } from "Utils/routeHandler"
 import { BodyType, Req } from "Utils/request"
 
-interface GetMateriaDeps {
-  materiaRepo: MateriaRepository
+interface GetProfessorDeps {
+  professorRepo: ProfessorRepository
 }
 
-export const DeletMateria: (deps: GetMateriaDeps) => 
-  RouteHandler<Req<{}, {}, {codigo: string }>
-  > = ({ materiaRepo }: GetMateriaDeps) => async (req, res) => {
+export const GetProfessor: (deps: GetProfessorDeps) => 
+  RouteHandler<Req<{}, {}, { matricula: string }>
+  > = ({ professorRepo }: GetProfessorDeps) => async (req, res) => {
     // Preciso corrigir essa tratativa
     if(!req.params) {
       return res
@@ -20,23 +20,24 @@ export const DeletMateria: (deps: GetMateriaDeps) =>
         })
     }
 
-    const { codigo } = req.params
+    const { matricula } = req.params
 
-    return await materiaRepo.deleteMateria(codigo)
-                          .then(() => res
+    return await professorRepo.getProfessorByMatricula(matricula)
+                          .then((professor) => res
                           .status(200)
                           .json({
                             code: 200,
                             status: 'success',
-                            message: "Deleted materia with success"
+                            message: "Found professor",
+                            data: professor
                           }))
                           .catch(err => res
                               .status(400)
                               .json({
                                 code: 400,
                                 status: "error",
-                                message: "Failed to delete materia"
+                                message: "Failed to get professor"
                               }))
     }
 
-export default DeletMateria
+export default GetProfessor

@@ -9,6 +9,8 @@ import DeleteAluno from "./DeleteAluno"
 import GetAluno from "./GetAluno"
 import ListAlunos from "./ListAlunos"
 import UpdateAluno from "./UpdateAluno"
+import SubscribeToCourse from "./SubscribeToCourse"
+import AddMateria from "./AddMateria"
 
 type AlunoDeps = {
   alunoRepo?: AlunoRepository,
@@ -25,6 +27,8 @@ const AlunoRouter: Router<AlunoDeps> = (deps, options) => {
     .get("/:matricula", GetAluno({ alunoRepo }))
     .get("/", ListAlunos({ alunoRepo }))
     .put("/:matricula", UpdateAluno({ alunoRepo }))
+    .put("/subscribe/:matricula", SubscribeToCourse({ alunoRepo }))
+    .post("/subscribe/materia/:matricula", AddMateria({ alunoRepo }))
 }
 
 export default AlunoRouter

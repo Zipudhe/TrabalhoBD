@@ -9,6 +9,8 @@ import DeleteMateria from "./DeleteMateria"
 import GetMateria from "./GetMateria"
 import ListMateria from "./ListMateria"
 import UpdateMateria from "./UpdateMateria"
+import AddMateria from "./AddMateria"
+import RemoveMatereia from "./RemoveMateria"
 
 type MateriaDeps = {
   materiaRepo?: MateriaRepository,
@@ -25,6 +27,8 @@ const MateriaRouter: Router<MateriaDeps> = (deps, options) => {
       .get("/:codigo", GetMateria({ materiaRepo }))
       .delete("/:codigo", DeleteMateria({ materiaRepo }))
       .put("/:codigo", UpdateMateria({ materiaRepo }))
+      .post("/add", AddMateria({ materiaRepo }))
+      .delete("/remove/materia", RemoveMatereia({ materiaRepo }))
 }
 
 export default MateriaRouter
