@@ -1,4 +1,5 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm"
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany, JoinColumn } from "typeorm"
+import Materia from "./Materia";
 
 @Entity()
 export class Curso extends BaseEntity {
@@ -8,6 +9,9 @@ export class Curso extends BaseEntity {
 
   @Column()
   nome: string;
+
+  @OneToMany(() => Materia, materia => materia.codigo)
+  materias: Materia[]
 }
 
 export default Curso

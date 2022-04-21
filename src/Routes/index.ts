@@ -3,6 +3,7 @@ import { Connection } from "typeorm"
 
 import AlunoRouter from './Aluno'
 import MateriaRouter from './Materia'
+import CursoRouter from "./Curso"
 
 
 export interface RouterDeps {
@@ -25,6 +26,7 @@ const Routes: Router<BaseRouterDeps> = ({ conn }, options = defaultOptions) => e
   .get("/ping", (_req, res) => res.json("pong"))
   .use("/aluno", AlunoRouter({ conn }, options))
   .use("/materia", MateriaRouter({ conn }, options))
+  .use("/curso", CursoRouter({ conn }, options))
 
 
 export default Routes
