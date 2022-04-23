@@ -20,6 +20,9 @@ export class Materia extends BaseEntity {
   codigo: string;
 
   @Column()
+  nome: string
+
+  @Column()
   carga: number;
 
   @ManyToMany(() => Materia, materia => materia.codigo)
