@@ -7,6 +7,7 @@ interface CrateRateDeps {
 }
 
 interface IRate extends BodyType {
+  professor: string,
   description: string,
   nota: number
 }
@@ -26,9 +27,9 @@ export const CreateRate: (deps: CrateRateDeps) =>
     }
 
 
-    const { description, nota } = req.body
+    const { description, nota, professor } = req.body
 
-    const rate = await rateRepo.createRate(description, nota)
+    const rate = await rateRepo.createRate(description, nota, professor)
 
       if(!rate) {
         return res

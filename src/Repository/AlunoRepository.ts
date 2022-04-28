@@ -17,8 +17,8 @@ export class AlunoRepository extends Repository<Aluno> {
     
     return this.query(
       `INSERT INTO 
-      aluno(matricula, email, nome, situacao)
-      values("${matricula}", "${email}", "${nome}", "${situacao}");`
+      aluno(matricula, email, nome, situacao, curso)
+      values("${matricula}", "${email}", "${nome}", "${situacao}", ${curso});`
     )
     .then(() => this.getAlunoByMatricula(matricula))
   }
@@ -63,6 +63,23 @@ export class AlunoRepository extends Repository<Aluno> {
       INSERT INTO
       aluno_materias_materia(alunoMatricula, materiaCodigo)
       VALUES('${aluno.matricula}', '${codigoMateria}')
+    `)
+  }
+
+
+  getAlunoMaterias(aluno: Aluno) {
+    return this.query(`
+    SELECT materia.codigo , materia.nome, materia.carga 
+    FROM aluno_materias_materia amm 
+    JOIN materia on amm.alunoMatricula = "${aluno.matricula}" AND amm.materiaCodigo = materia.codigo`)
+  }
+
+  getPreRequisitos(codigoMateria: string) {
+    return this.query(`
+      SELECT mpm.requisitoCodigo
+      FROM materia as m 
+      JOIN materia_prerequisito_materia as mpm on m.codigo = mpm.materiaCodigo
+      WHERE m.codigo = "${codigoMateria}"
     `)
   }
 }

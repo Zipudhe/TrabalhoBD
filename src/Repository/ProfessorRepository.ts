@@ -6,7 +6,6 @@ import { EntityRepository, Repository } from "typeorm"
 export class ProfessorRepository extends Repository<Professor> {
 
   async getProfessorByMatricula(matricula: string) {
-    console.log(matricula)
     return this.query(
       `SELECT * from professor where professor.matricula = '${matricula}'`
     )
@@ -64,5 +63,12 @@ export class ProfessorRepository extends Repository<Professor> {
       DELETE FROM materia_professores_professor 
       WHERE professorMatricula = '${professor.matricula}' and materiaCodigo = '${materia}'
     `)
+  }
+
+  getAverage(professorMatricula: string) {
+    console.log(professorMatricula)
+    return this.query(`
+      CALL avg_nota_professor('${professorMatricula}')
+    `).then(media => media[0])
   }
 }

@@ -84,6 +84,16 @@ export class CursoRepository extends Repository<Curso> {
       WHERE materiaCodigo = '${materia}' AND cursoId = ${curso}
     `)
   }
+
+  getMateriaCurso(curso: Curso) {
+    return this.query(`
+    SELECT m.codigo, m.nome, m.carga 
+    FROM curso as c
+    JOIN materia_cursos_curso AS mcc ON mcc.cursoId = c.id
+    JOIN materia as m ON mcc.materiaCodigo = m.codigo
+    WHERE c.id = ${curso.id};
+    `)
+  }
 }
 
 export default CursoRepository

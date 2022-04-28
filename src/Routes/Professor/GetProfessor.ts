@@ -23,14 +23,20 @@ export const GetProfessor: (deps: GetProfessorDeps) =>
     const { matricula } = req.params
 
     return await professorRepo.getProfessorByMatricula(matricula)
-                          .then((professor) => res
-                          .status(200)
-                          .json({
-                            code: 200,
-                            status: 'success',
-                            message: "Found professor",
-                            data: professor
-                          }))
+                          .then(async(professor) => {
+                            console.log("Got professor: ", professor)
+                            const media = await professorRepo.getAverage(professor.matricula)
+                            console.log(media)
+                            const data = {...professor, ...media[0]}
+                            return res
+                            .status(200)
+                            .json({
+                              code: 200,
+                              status: 'success',
+                              message: "Found professor",
+                              data
+                            })
+                          })
                           .catch(err => res
                               .status(400)
                               .json({

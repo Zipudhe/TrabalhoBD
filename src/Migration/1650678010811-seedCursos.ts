@@ -6,7 +6,6 @@ export class seedCursos1650674538260 implements MigrationInterface {
         await queryRunner.query(`INSERT INTO curso(nome) VALUES('Ciencia da computacao')`)
         await queryRunner.query(`INSERT INTO curso(nome) VALUES('Engenharia da computacao')`)
         await queryRunner.query(`INSERT INTO curso(nome) VALUES('licenciatura da computacao')`)
-        await queryRunner.query(`INSERT INTO curso(nome) VALUES('licenciatura da computacao')`)
         await queryRunner.query(`INSERT INTO curso(nome) VALUES('Fisica')`)
         await queryRunner.query(`INSERT INTO curso(nome) VALUES('Arquitetura')`)
 

@@ -13,12 +13,18 @@ export const GetCurso: (deps: GetCursosDeps) =>
     console.log(req.params)
 
    return await cursoRepo.getCursoById(req.params.id)
-    .then(curso => res.json({
-      code: 200,
-      status: 'success',
-      message: "Curso found",
-      data: curso
-    }))
+    .then(async(curso) => {
+      const materiaCurso = await cursoRepo.getMateriaCurso(curso)
+
+      const data = {curso, materiaCurso}
+
+      res.json({
+        code: 200,
+        status: 'success',
+        message: "Curso found",
+        data
+      })
+    })
     .catch(err => {
       res.status(400).json({
         code: 400,

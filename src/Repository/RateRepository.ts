@@ -16,15 +16,15 @@ export class RateRepository extends Repository<Rate> {
       `
         SELECT * from rate WHERE rate.description = '${description}'
       `
-    )
+    ).then(rate => rate[0])
   }
 
   // TODO Adicionar parâmetro da matricula professor
-  async createRate(description: string, nota: number) {
+  async createRate(description: string, nota: number, professor: string) {
     return this.query(
       `INSERT INTO 
-      rate(description, nota)
-      values("${description}", ${nota});`
+      rate(description, nota, professorMatricula)
+      values("${description}", ${nota}, "${professor}");`
     )
     .then(() => this.getRateByDescription(description))
   }

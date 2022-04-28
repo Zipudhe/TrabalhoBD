@@ -6,9 +6,17 @@ export class MateriaRepository extends Repository<Materia> {
 
   async getMateriaBycodigo(codigo: string ) {
     return this.query(
-      `SELECT * from materia where materia.codigo  = '${codigo}';`
+      `
+      SELECT *
+      FROM materia as m 
+      WHERE m.codigo = "${codigo}";
+      `
     )
-    .then(materia => materia[0])
+    .then(async(materias) => {
+      const materia = materias[0]
+      const requisitos = await this.getRequisitosMateria(materia)
+      return {materia, requisitos}
+    })
   }
 
   // Adicionar cursos pra poder adicionar materia já com curso cadastrado
@@ -71,6 +79,15 @@ export class MateriaRepository extends Repository<Materia> {
       DELETE
       FROM materia_prerequisito_materia
       WHERE materiaCodigo_1 = '${materia.codigo}' and materiaCodigo_2 = '${requisito.codigo}'
+    `)
+  }
+
+  getRequisitosMateria(materia: Materia) {
+    return this.query(`
+      SELECT mpm.requisitoCodigo as requisito
+      FROM materia as m 
+      JOIN materia_prerequisito_materia as mpm on m.codigo = mpm.materiaCodigo
+      WHERE m.codigo = "${materia.codigo}";
     `)
   }
 }
