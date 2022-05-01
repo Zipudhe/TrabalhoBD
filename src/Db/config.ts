@@ -52,10 +52,13 @@ export const getTypeOrmConfig = () => {
       `${root}/Entity/**/*{.js,.ts}`
     ],
 
+
+
     cli: {
       entitiesDir: `${root}/Entity`,
       migrationsDir: `${root}/Migration`,
-      subscribersDir: `${root}/subscribers`
+      subscribersDir: `${root}/subscribers`,
+      seedsDir: `${root}/Seed`
     }
   }
 }

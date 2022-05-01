@@ -9,6 +9,7 @@ import {
 } from "typeorm"
 
 import Professor from "./Professor";
+import Curso from "./Curso"
 
 @Entity()
 export class Materia extends BaseEntity {
@@ -19,15 +20,23 @@ export class Materia extends BaseEntity {
   codigo: string;
 
   @Column()
+  nome: string
+
+  @Column()
   carga: number;
 
-  @OneToMany(() => Materia, materia => materia.codigo)
+  @ManyToMany(() => Materia, materia => materia.codigo)
+  @JoinTable()
   prerequisito: Materia[]
 
 
   @ManyToMany(() => Professor)
   @JoinTable()
   professores: Professor[]
+
+  @ManyToMany(() => Curso, curso => curso.id)
+  @JoinTable()
+  cursos: Curso[]
 
 }
 

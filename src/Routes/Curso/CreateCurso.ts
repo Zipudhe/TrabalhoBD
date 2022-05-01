@@ -1,22 +1,20 @@
-import { AlunoRepository } from "Repository/AlunoRepository"
-import { RouteHandler } from "Utils/routeHandler"
+import CursoRepository from "Repository/CursoRepository";
+
+import { RouteHandler } from "Utils/routeHandler";
 import { BodyType, Req } from "Utils/request"
 
-interface CreateAlunoDeps {
-  alunoRepo: AlunoRepository
+interface CreateCursoDeps {
+  cursoRepo: CursoRepository
 }
 
-interface IUser extends BodyType {
-  matricula: string,
-  email: string,
+interface ICurso extends BodyType {
   nome: string,
-  situacao?: string,
-  curso: number
+  materias?: string
 }
 
-export const CreateAluno: (deps: CreateAlunoDeps) => 
-  RouteHandler<Req<IUser, {}>
-  > = ({ alunoRepo }: CreateAlunoDeps) => async (req, res) => {
+export const CreateCurso: (deps: CreateCursoDeps) => 
+  RouteHandler<Req<ICurso, {}>
+  > = ({ cursoRepo }: CreateCursoDeps) => async (req, res) => {
     //TODO Preciso corrigir essa tratativa
     if(!req.body) {
       return res
@@ -30,21 +28,21 @@ export const CreateAluno: (deps: CreateAlunoDeps) =>
 
     console.log("Passou da checagem do body", req.body)
 
-    const { matricula, nome, email, curso, situacao } = req.body
+    const { nome, materias } = req.body
 
 
-    const exists = await alunoRepo.getAlunoByMatricula(matricula)
+    const exists = await cursoRepo.getCursoByNome(nome)
     if(exists) {
       return res
         .status(400)
         .json({
           code: 400,
           status: 'error',
-          message: "Aluno já existe"
+          message: "Curso já existe"
         })
     }
 
-    const aluno = await alunoRepo.createAluno(matricula, email, nome, situacao, curso)
+    const aluno = await cursoRepo.createCurso(nome, materias)
 
       if(!aluno) {
         return res
@@ -55,14 +53,15 @@ export const CreateAluno: (deps: CreateAlunoDeps) =>
           message: "Failed to create aluno",
         })
       }
+
       return res
         .status(200)
         .json({
           code: 200,
           status: "success",
-          message: "Aluno created",
+          message: "Curso created",
           data: aluno
         })
   }
 
-export default CreateAluno
+export default CreateCurso
