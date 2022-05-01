@@ -41,17 +41,24 @@ export const getTypeOrmConfig = () => {
     loggin: false,
 
     migrations: [
-      `${root}/Migration/**/*.ts`
+      `${root}/Migration/**/*{.js,.ts}`
     ],
 
     subscribers: [
-      `${root}/Subscriber/**/*.ts`
+      `${root}/Subscriber/**/*{.js,.ts}`
     ],
+
+    entities: [
+      `${root}/Entity/**/*{.js,.ts}`
+    ],
+
+
 
     cli: {
       entitiesDir: `${root}/Entity`,
       migrationsDir: `${root}/Migration`,
-      subscribersDir: `${root}/subscribers`
+      subscribersDir: `${root}/subscribers`,
+      seedsDir: `${root}/Seed`
     }
   }
 }

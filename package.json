@@ -19,10 +19,14 @@
       "express": "^4.17.3",
       "mysql": "^2.14.1",
       "reflect-metadata": "^0.1.10",
-      "typeorm": "^0.2.45",
+      "typeorm": "^0.2.25",
       "typescript": "^4.6.2"
    },
    "scripts": {
-      "dev": "dotenv -- tsnd -r tsconfig-paths/register --respawn --transpile-only src/index.ts"
+      "dev": "dotenv -- tsnd -r tsconfig-paths/register --respawn --transpile-only src/index.ts",
+      "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm --config ./src/Db/config.cli",
+      "db:build": "yarn typeorm migration:run",
+      "db:drop": "yarn typeorm schema:drop",
+      "db:reset": "yarn db:drop && yarn db:build"
    }
 }

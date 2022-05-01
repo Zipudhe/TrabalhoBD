@@ -1,6 +1,6 @@
 import Db from "Db";
 
-import express from 'express'
+import express, { urlencoded, json } from 'express'
 import cors from "cors"
 
 import Routes from "Routes";
@@ -8,6 +8,8 @@ import Routes from "Routes";
 const app = express()
 
 app.use(cors())
+app.use(json())
+app.use(urlencoded({ extended: true }))
 
 Db()
     .then(async ({ conn }) => {
